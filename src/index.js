@@ -19,6 +19,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }))
 app.use(methodOverride())
 
+// routers
+app.use('/apiv1', require('./app/routes/apiv1').default)
+
 process.on('unhandledRejection', (e: string) => { Logger.error('\nRejection:\n', e) })
 
 const httpServer = app.listen(config.ports.httpServer, () => {
