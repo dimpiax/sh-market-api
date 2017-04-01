@@ -1,0 +1,34 @@
+{
+    "en": {
+        "region": {
+            "register": {
+                "errorType": {
+                    "badRequest": "default register:BAD_REQUEST message",
+                    "forbidden": "default register:FORBIDDEN message"
+                }
+            },
+            "auth": {
+                "errorType": {
+                    "badRequest": "default auth:BAD_REQUEST message",
+                    "forbidden": "default auth:FORBIDDEN message"
+                }
+            }
+        }
+    },
+    "es": {
+        "region": {
+            "register": {
+                "errorType": {
+                    "badRequest": "++",
+                    "forbidden": "**"
+                }
+            },
+            "auth": {
+                "errorType": {
+                    "badRequest": "--",
+                    "forbidden": "//"
+                }
+            }
+        }
+    }
+}

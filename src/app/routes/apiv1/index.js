@@ -2,7 +2,7 @@
 
 import { Router } from 'express'
 
-import APIError from '../../errors'
+import errorHandler from '../../middlewares/error-handler'
 
 const router = Router()
 
@@ -16,40 +16,6 @@ router.route('/ping')
     })
 
 // error handling
-router.use((err: Error | APIError, req: Object, res: Object, next: () => void) => {
-    if (err instanceof APIError) {
-        console.log('API Error', err)
-
-        const type = err.type
-        const data = err.data
-
-        let message: string = 'default message'
-        if (type === 'badRequest') {
-            message = `malformed syntax for ${type}`
-        }
-        else {
-            switch (err.region) {
-                case 'register':
-                    if (type === 'forbidden') {
-                        if (data) {
-                            message = `${data.name}, you are registered here under mail: ${data.email}`
-                        }
-                    }
-
-                    break
-
-                case 'auth':
-                    break
-
-                default: break
-            }
-        }
-
-        res.status(err.code).send(message)
-        return
-    }
-
-    throw err
-})
+router.use(errorHandler())
 
 export default router

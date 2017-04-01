@@ -1,6 +1,12 @@
 /* @flow */
 
 export default {
+    get docs(): { errorMessages: string } {
+        return {
+            errorMessages: 'assets/docs/errorMessages.json'
+        }
+    },
+
     get security(): Object {
         return {
             jwt: {
