@@ -1,6 +1,6 @@
 /* @flow */
 
-export type ErrorRegionType = 'register' | 'auth'
+export type ErrorRegionType = 'register' | 'auth' | 'adverts'
 export type ErrorType = 'forbidden' | 'badRequest'
 
 export default class APIError {

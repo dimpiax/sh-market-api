@@ -4,7 +4,8 @@ export default {
     get security(): Object {
         return {
             jwt: {
-                secret: '!@#$%^&'
+                secret: '!@#$%^&',
+                expiresIn: 60 * 60 * 24 // 24 hours
             }
         }
     },

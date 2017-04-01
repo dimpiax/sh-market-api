@@ -4,7 +4,6 @@ import express from 'express'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
-import jwt from 'express-jwt'
 
 import Logger from './utils/logger'
 

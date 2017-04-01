@@ -7,6 +7,24 @@ import type { ModelNameType } from './model-name'
 const getModel = (name: ModelNameType): Object => mongoose.model(name)
 
 export default {
+    findOne: async (name: ModelNameType, query: Object, projection: string = '-_id -__v'): Promise<Object> => {
+        try {
+            const result = await getModel(name).findOne(query, projection).lean()
+            return result
+        } catch (err) {
+            throw err
+        }
+    },
+
+    find: async (name: ModelNameType, query: Object, projection: string = '-_id -__v'): Promise<Object> => {
+        try {
+            const result = await getModel(name).find(query, projection).lean()
+            return result
+        } catch (err) {
+            throw err
+        }
+    },
+
     create: async (name: ModelNameType, doc: Object): Promise<void> => {
         try {
             const result = await getModel(name).create(doc)
