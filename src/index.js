@@ -4,6 +4,7 @@ import express from 'express'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
+import jwt from 'express-jwt'
 
 import Logger from './utils/logger'
 
@@ -18,6 +19,16 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }))
 app.use(methodOverride())
+
+// middlewares
+// app.use('/apiv1', jwt({ secret: config.security.jwt.secret }), (err: Object, req: Object, res: Object, next: (() => void)) => {
+//     if (err) {
+//         res.sendStatus(err.status)
+//     }
+//     else {
+//         next()
+//     }
+// })
 
 // routers
 app.use('/apiv1', require('./app/routes/apiv1').default)

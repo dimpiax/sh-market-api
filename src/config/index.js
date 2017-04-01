@@ -1,12 +1,18 @@
 /* @flow */
 
 export default {
+    get security(): Object {
+        return {
+            jwt: {
+                secret: '!@#$%^&'
+            }
+        }
+    },
+
     get ports(): Object {
-        const data = {
+        return {
             httpServer: 3000
         }
-
-        return { ...data }
     },
 
     get database(): Object {

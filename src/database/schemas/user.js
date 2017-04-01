@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 
 export default mongoose.Schema({
     name: String,
-    email: Boolean,
-    passwd: Number,
+    email: String,
+    passwd: String,
     lang: String
 })
