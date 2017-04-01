@@ -42,7 +42,14 @@ export default class ErrorService {
             text = err.type
         }
 
-        // TODO: make dynamic string
+        // inject dynamic variables to meta-tags
+        const data = err.data
+        if (data != null) {
+            text = text.replace(/\$\{(.[^{}]+)\}/g, (substring: string, ...args: Array<any>): string => {
+                const prop = args[0]
+                return Utils.getValue(data, prop) || ''
+            })
+        }
 
         return { status: err.code, text }
     }

@@ -20,7 +20,7 @@
             "register": {
                 "errorType": {
                     "badRequest": "++",
-                    "forbidden": "**"
+                    "forbidden": "** ${name} ${emai1l}"
                 }
             },
             "auth": {
