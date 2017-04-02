@@ -7,6 +7,9 @@ import Advert from '../../database/schemas/advert'
 
 export default class AdvertService {
     static async getAdverts({ tag, toSell, interval, name }: { tag: string, toSell: boolean, interval: string, name: string }): Promise<Advert[]> {
+        // TODO: implement pagination
+        // TODO: implement sort
+
         const query = {}
         if (tag != null) query.tag = tag
         if (toSell != null) query.toSell = toSell

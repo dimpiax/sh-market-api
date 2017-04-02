@@ -1,7 +1,7 @@
 /* @flow */
 
 const init = () => {
-    console.log('start point')
+    // application entry point
 }
 
 export default {

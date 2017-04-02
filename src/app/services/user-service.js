@@ -3,6 +3,7 @@
 import jwt from 'jsonwebtoken'
 
 import config from '../../config'
+import security from '../../utils/security'
 
 import ModelName from '../../database/model-name'
 import dbProxy from '../../database/db-proxy'
@@ -16,15 +17,22 @@ export default class UserService {
         if (isExist) throw APIError.forbidden('register', { name, email, passwd, lang })
 
         try {
-            await dbProxy.create(ModelName.user, { name, email, passwd, lang })
+            // encrypt password, using AES-256
+            const { algorithm, password } = config.security.crypto
+            const encPasswd = security.crypt(algorithm, password).encrypt(passwd)
+            await dbProxy.create(ModelName.user, { name, email, passwd: encPasswd, lang })
         } catch (err) {
             throw err
         }
     }
 
     static async auth({ email, passwd }: { email: string, passwd: string }): Promise<string> {
+        // encrypt password, using AES-256
+        const { algorithm, password } = config.security.crypto
+        const encPasswd = security.crypt(algorithm, password).encrypt(passwd)
+
         const user = await UserService.getUser(email)
-        if (user == null || user.passwd !== passwd) throw APIError.forbidden('auth', { email, passwd })
+        if (user == null || user.passwd !== encPasswd) throw APIError.forbidden('auth', { email, passwd })
 
         const { secret, expiresIn } = config.security.jwt
         const token = jwt.sign(user, secret, { expiresIn })

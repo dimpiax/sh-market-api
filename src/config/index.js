@@ -17,6 +17,10 @@ export default {
             jwt: {
                 secret: '!@#$%^&',
                 expiresIn: 60 * 60 * 24 // 24 hours
+            },
+            crypto: {
+                algorithm: 'aes-256-ctr',
+                password: 'rGp7kSea'
             }
         }
     },

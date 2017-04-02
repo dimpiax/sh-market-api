@@ -31,19 +31,21 @@ export default class ErrorService {
     }
 
     static getMessage(err: APIError, req: Object): { status: number, text: string } {
+        console.log(req.query)
         const lang = req.query.lang || config.errors.defaultLang
 
-        let langMessages = ErrorService.getDefaultMessagesBody()
+        const defaultMessageBody = ErrorService.getDefaultMessagesBody()
+        let langMessages = defaultMessageBody
         const errorMessages = LazyService.getData('errorMessages')
         if (errorMessages != null && errorMessages[lang] != null) {
             langMessages = errorMessages[lang]
         }
 
         // retrieve error text
-        const { headRegion, headErrorType } = config.errors.headers
-        let text = Utils.getValue(langMessages, headRegion, err.region, headErrorType, err.type)
+        const headers = config.errors.headers
+        let text = Utils.getValue(langMessages, headers.region, err.region, headers.errorType, err.type)
         if (text == null) {
-            text = Utils.getValue(ErrorService.getDefaultMessagesBody(), headRegion, err.region, headErrorType, err.type)
+            text = Utils.getValue(defaultMessageBody, headers.region, err.region, headers.errorType, err.type)
         }
         if (text == null) {
             text = err.type
