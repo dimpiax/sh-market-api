@@ -38,4 +38,14 @@ router.route('/')
         }
     })
 
+router.route('/tags')
+    .get(async (req: Object, res: Object, next: () => void): Promise<void> => {
+        try {
+            const result = await AdvertService.getDistinctValues('tag')
+            res.send(result)
+        } catch (err) {
+            next(err)
+        }
+    })
+
 export default router

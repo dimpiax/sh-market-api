@@ -36,6 +36,16 @@ export default class AdvertService {
         }
     }
 
+    static async getDistinctValues(name: string): Promise<string[]> {
+        try {
+            const result = await dbProxy.distinct(ModelName.advert, name)
+            return result
+        } catch (err) {
+            throw err
+        }
+    }
+
+    // PRIVATE
     static _getMongoRangeValue(value: string): ?(number | { gte: number, lte: number }) {
         // expression group strict input number values,
         // searching for alone and range values

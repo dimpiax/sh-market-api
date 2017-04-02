@@ -42,5 +42,14 @@ export default {
         } catch (err) {
             throw err
         }
+    },
+
+    distinct: async (name: ModelNameType, prop: string): Promise<string[]> => {
+        try {
+            const result = await getModel(name).distinct(prop)
+            return result
+        } catch (err) {
+            throw err
+        }
     }
 }
