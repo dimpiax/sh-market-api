@@ -1,9 +1,14 @@
 /* @flow */
 
 export default {
-    get docs(): { errorMessages: string } {
+    get errors(): Object {
         return {
-            errorMessages: 'assets/docs/errorMessages.json'
+            defaultLang: 'en',
+            headers: {
+                region: 'region',
+                errorType: 'errorType'
+            },
+            externalMessagesURI: 'assets/docs/errorMessages.json'
         }
     },
 

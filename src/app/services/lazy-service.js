@@ -20,19 +20,19 @@ class LazyService {
         }
 
         if (!this._storedData.has(key)) {
-            const filepath = this._getFilePath(key)
-            if (filepath == null) return null
+            const uri = this._getFileURI(key)
+            if (uri == null) return null
 
-            const json = this._getJSONFile(filepath)
+            const json = this._getJSONFile(uri)
             this._storedData.set(key, json)
         }
 
         return this._storedData.get(key)
     }
 
-    _getFilePath(value: LazyServiceDataType): ?string {
+    _getFileURI(value: LazyServiceDataType): ?string {
         switch (value) {
-            case 'errorMessages': return config.docs.errorMessages
+            case 'errorMessages': return config.errors.externalMessagesURI
 
             default: break
         }

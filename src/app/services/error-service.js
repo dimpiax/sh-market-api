@@ -1,10 +1,16 @@
 /* @flow */
 
+import config from '../../config'
+
 import LazyService from './lazy-service'
 import APIError from '../errors'
 import Utils from '../../utils'
 
 export default class ErrorService {
+    /**
+     * default body for error messages
+     * @return Object
+     */
     static getDefaultMessagesBody(): Object {
         return {
             region: {
@@ -25,7 +31,7 @@ export default class ErrorService {
     }
 
     static getMessage(err: APIError, req: Object): { status: number, text: string } {
-        const lang = req.query.lang || 'en'
+        const lang = req.query.lang || config.errors.defaultLang
 
         let langMessages = ErrorService.getDefaultMessagesBody()
         const errorMessages = LazyService.getData('errorMessages')
@@ -34,21 +40,23 @@ export default class ErrorService {
         }
 
         // retrieve error text
-        let text = Utils.getValue(langMessages, 'region', err.region, 'errorType', err.type)
+        const { headRegion, headErrorType } = config.errors.headers
+        let text = Utils.getValue(langMessages, headRegion, err.region, headErrorType, err.type)
         if (text == null) {
-            text = Utils.getValue(ErrorService.getDefaultMessagesBody(), 'region', err.region, 'errorType', err.type)
+            text = Utils.getValue(ErrorService.getDefaultMessagesBody(), headRegion, err.region, headErrorType, err.type)
         }
         if (text == null) {
             text = err.type
         }
-
-        // inject dynamic variables to meta-tags
-        const data = err.data
-        if (data != null) {
-            text = text.replace(/\$\{(.[^{}]+)\}/g, (substring: string, ...args: Array<any>): string => {
-                const prop = args[0]
-                return Utils.getValue(data, prop) || ''
-            })
+        else {
+            // inject dynamic variables to meta-tags
+            const data = err.data
+            if (data != null) {
+                text = text.replace(/\$\{(.[^{}]+)\}/g, (substring: string, ...args: Array<any>): string => {
+                    const prop = args[0]
+                    return Utils.getValue(data, prop) || ''
+                })
+            }
         }
 
         return { status: err.code, text }
