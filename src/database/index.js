@@ -19,8 +19,12 @@ export default {
     setup: async (uri: string): Promise<void> => {
         Logger.log(Level.database, `setup to ${uri}`)
 
+        // config mongoose
+        mongoose.set('debug', true)
+
         mongoose.connection.on('connected', () => {
             Logger.log(Level.database, `mongoose connected to port ${mongoose.connection.port}`)
+
 
             initModels()
         })

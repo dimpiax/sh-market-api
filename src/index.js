@@ -19,16 +19,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }))
 app.use(methodOverride())
 
-// middlewares
-// app.use('/apiv1', jwt({ secret: config.security.jwt.secret }), (err: Object, req: Object, res: Object, next: (() => void)) => {
-//     if (err) {
-//         res.sendStatus(err.status)
-//     }
-//     else {
-//         next()
-//     }
-// })
-
 // routers
 app.use('/apiv1', require('./app/routes/apiv1').default)
 
