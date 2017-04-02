@@ -41,7 +41,7 @@ router.route('/')
 router.route('/tags')
     .get(async (req: Object, res: Object, next: () => void): Promise<void> => {
         try {
-            const result = await AdvertService.getDistinctValues('tag')
+            const result = await AdvertService.getDistinctValues('tags')
             res.send(result)
         } catch (err) {
             next(err)
