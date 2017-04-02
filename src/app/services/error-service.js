@@ -31,8 +31,7 @@ export default class ErrorService {
     }
 
     static getMessage(err: APIError, req: Object): { status: number, text: string } {
-        console.log(req.query)
-        const lang = req.query.lang || config.errors.defaultLang
+        const lang = (req.query.lang || config.errors.defaultLang).toLowerCase()
 
         const defaultMessageBody = ErrorService.getDefaultMessagesBody()
         let langMessages = defaultMessageBody
