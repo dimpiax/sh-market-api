@@ -6,10 +6,7 @@ import dbProxy from '../../database/db-proxy'
 import Advert from '../../database/schemas/advert'
 
 export default class AdvertService {
-    static async getAdverts({ tag, toSell, interval, name }: { tag: string, toSell: boolean, interval: string, name: string }): Promise<Advert[]> {
-        // TODO: implement pagination
-        // TODO: implement sort
-
+    static async getAdverts({ tag, toSell, interval, name, sort, start, limit }: { tag: string, toSell: boolean, interval: string, name: string, sort: string, start: string, limit: string }): Promise<Advert[]> {
         const query = {}
         if (tag != null) query.tag = tag
         if (toSell != null) query.toSell = toSell
@@ -21,8 +18,18 @@ export default class AdvertService {
             if (rangeValue != null) query.price = rangeValue
         }
 
+        // setup options
+        const options = {}
+
+        // implement sorting
+        if (sort != null) options.sort = { [sort]: 1 }
+
+        // implement pagination
+        const pageOpt = this._getPageOptions(start, limit)
+        if (pageOpt != null) Object.assign(options, pageOpt)
+
         try {
-            const result = await dbProxy.find(ModelName.advert, query)
+            const result = await dbProxy.find(ModelName.advert, query, undefined, options)
             return result
         } catch (err) {
             throw err
@@ -53,5 +60,14 @@ export default class AdvertService {
             .filter(Boolean)
 
         return result.length > 0 ? Object.assign({}, ...result) : null
+    }
+
+    static _getPageOptions(startValue: string, limitValue: string): ?{ skip: number, limit: number } {
+        const start = parseInt(startValue, 10)
+        const limit = parseInt(limitValue, 10)
+        if (start == null || limit == null) return null
+
+        const skip = start * limit
+        return { skip, limit }
     }
 }

@@ -17,7 +17,7 @@ export default class UserService {
         if (isExist) throw APIError.forbidden('register', { name, email, passwd, lang })
 
         try {
-            // encrypt password, using AES-256
+            // encrypt password
             const { algorithm, password } = config.security.crypto
             const encPasswd = security.crypt(algorithm, password).encrypt(passwd)
             await dbProxy.create(ModelName.user, { name, email, passwd: encPasswd, lang })
@@ -27,7 +27,7 @@ export default class UserService {
     }
 
     static async auth({ email, passwd }: { email: string, passwd: string }): Promise<string> {
-        // encrypt password, using AES-256
+        // encrypt password, for comparison
         const { algorithm, password } = config.security.crypto
         const encPasswd = security.crypt(algorithm, password).encrypt(passwd)
 
