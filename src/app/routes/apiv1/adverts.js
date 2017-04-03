@@ -20,7 +20,7 @@ router.use((req: Object, res: Object, next: () => void) => {
     const { secret } = config.security.jwt
     jwt.verify(token, secret, (err: any, decoded: any) => {
         if (err) {
-            next(APIError.forbidden('adverts'))
+            next(APIError.forbidden('adverts', { token }))
             return
         }
 

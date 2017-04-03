@@ -12,6 +12,12 @@
                     "badRequest": "default auth:BAD_REQUEST message",
                     "forbidden": "default auth:FORBIDDEN message"
                 }
+            },
+            "adverts": {
+                "errorType": {
+                    "badRequest": "for request, we need a token",
+                    "forbidden": "token is invalid"
+                }
             }
         }
     },
@@ -27,6 +33,12 @@
                 "errorType": {
                     "badRequest": "--",
                     "forbidden": "//"
+                }
+            },
+            "adverts": {
+                "errorType": {
+                    "badRequest": "for request, we need a token",
+                    "forbidden": "token is invalid"
                 }
             }
         }

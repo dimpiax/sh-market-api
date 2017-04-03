@@ -6,15 +6,18 @@ import dbProxy from '../../database/db-proxy'
 import Advert from '../../database/schemas/advert'
 
 export default class AdvertService {
-    static async getAdverts({ tag, toSell, interval, name, sort, start, limit }: { tag: string, toSell: boolean, interval: string, name: string, sort: string, start: string, limit: string }): Promise<Advert[]> {
+    static async getAdverts({ tag, toSell, price, name, sort, start, limit }: { tag: string, toSell: boolean, price: string, name: string, sort: string, start: string, limit: string }): Promise<Advert[]> {
         const query = {}
-        if (tag != null) query.tag = tag
+        if (tag != null) query.tags = tag
         if (toSell != null) query.toSell = toSell
-        if (name != null) query.artName = new RegExp(`^${name}.*`)
+
+        // need to define, which symbols can includes article's name
+        // to propose better expression
+        if (name != null) query.artName = new RegExp(`^${name}.*`, 'i')
 
         // mould possible range
-        if (interval != null) {
-            const rangeValue = this._getMongoRangeValue(interval)
+        if (price != null) {
+            const rangeValue = this._getMongoRangeValue(price)
             if (rangeValue != null) query.price = rangeValue
         }
 
@@ -47,16 +50,16 @@ export default class AdvertService {
 
     // PRIVATE
     static _getMongoRangeValue(value: string): ?(number | { gte: number, lte: number }) {
-        // expression group strict input number values,
+        // expression group strict input double values,
         // searching for alone and range values
-        const regExp = /(?:^(\d+)$)|(?:(\d+)?-(\d+)?)/
+        const regExp = /(?:^((?:\d\.?)+)$)|(?:^((?:\d\.?)+)?-((?:\d\.?)+)?$)/
         const res = regExp.exec(value)
         if (res == null) return null
 
         const signleValue = res[1]
         if (signleValue != null) {
             // in case input signle number, i.e.: 123
-            return parseInt(signleValue, 10)
+            return parseFloat(signleValue, 10)
         }
 
         // in case input range value, i.e.: 1-, -1, 1-2
@@ -65,7 +68,7 @@ export default class AdvertService {
             .map((el: string): ?Object => {
                 const number = range[el]
                 if (number == null) return null
-                return { [el]: parseInt(number, 10) }
+                return { [el]: parseFloat(number, 10) }
             })
             .filter(Boolean)
 

@@ -15,12 +15,12 @@ class Crypt {
 
     encrypt(value: string): string {
         const c = crypto.createCipher(this._algorithm, new Buffer(this._password))
-        return c.update(value, 'utf-8', 'hex') + c.final('hex')
+        return c.update(value, 'utf8', 'hex') + c.final('hex')
     }
 
     decrypt(value: string): string {
         const c = crypto.createDecipher(this._algorithm, new Buffer(this._password))
-        return c.update(value, 'hex', 'utf-8') + c.final('utf-8')
+        return c.update(value, 'hex', 'utf8') + c.final('utf8')
     }
 }
 

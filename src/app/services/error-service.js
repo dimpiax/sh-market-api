@@ -25,6 +25,12 @@ export default class ErrorService {
                         badRequest: 'default auth:BAD_REQUEST message',
                         forbidden: 'default auth:FORBIDDEN message'
                     }
+                },
+                adverts: {
+                    errorType: {
+                        badRequest: 'default adverts:BAD_REQUEST message',
+                        forbidden: 'default adverts:FORBIDDEN message'
+                    }
                 }
             }
         }
@@ -32,22 +38,31 @@ export default class ErrorService {
 
     static getMessage(err: APIError, req: Object): { status: number, text: string } {
         const lang = (req.query.lang || config.errors.defaultLang).toLowerCase()
+        console.log(lang)
 
-        const defaultMessageBody = ErrorService.getDefaultMessagesBody()
-        let langMessages = defaultMessageBody
         const errorMessages = LazyService.getData('errorMessages')
-        if (errorMessages != null && errorMessages[lang] != null) {
-            langMessages = errorMessages[lang]
-        }
 
         // retrieve error text
         const headers = config.errors.headers
-        let text = Utils.getValue(langMessages, headers.region, err.region, headers.errorType, err.type)
-        if (text == null) {
-            text = Utils.getValue(defaultMessageBody, headers.region, err.region, headers.errorType, err.type)
+
+        let text: ?string
+
+        if (errorMessages != null) {
+            [lang, 'en'].some((el: string): boolean => {
+                text = Utils.getValue(errorMessages[el], headers.region, err.region, headers.errorType, err.type)
+                return text != null
+            })
         }
+
+        // if no body messages found
+        // get default
         if (text == null) {
-            text = err.type
+            text = Utils.getValue(ErrorService.getDefaultMessagesBody(), headers.region, err.region, headers.errorType, err.type)
+        }
+
+        // in case that error is not declared
+        if (text == null) {
+            text = `${err.region}:${err.type}`
         }
         else {
             // inject dynamic variables to meta-tags
