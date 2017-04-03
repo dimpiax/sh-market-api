@@ -37,8 +37,10 @@ export default class ErrorService {
     }
 
     static getMessage(err: APIError, req: Object): { status: number, text: string } {
-        const lang = (req.query.lang || config.errors.defaultLang).toLowerCase()
-        console.log(lang)
+        let lang = Utils.getValue(req, 'user', 'lang')
+        if (lang == null) {
+            lang = (req.query.lang || config.errors.defaultLang).toLowerCase()
+        }
 
         const errorMessages = LazyService.getData('errorMessages')
 

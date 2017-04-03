@@ -6,5 +6,5 @@ export default mongoose.Schema({
     name: String,
     email: { type: String, index: true },
     passwd: String,
-    lang: String
+    lang: { type: String, lowercase: true }
 })

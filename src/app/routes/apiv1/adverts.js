@@ -24,6 +24,8 @@ router.use((req: Object, res: Object, next: () => void) => {
             return
         }
 
+        req.user = decoded
+
         next()
     })
 })
