@@ -42,6 +42,6 @@ export default {
             }
         }
 
-        return { ...data }
+        return data
     }
 }

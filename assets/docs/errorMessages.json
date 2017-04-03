@@ -3,20 +3,20 @@
         "region": {
             "register": {
                 "errorType": {
-                    "badRequest": "default register:BAD_REQUEST message",
-                    "forbidden": "default register:FORBIDDEN message"
+                    "badRequest": "Register query must has keys: 'name', 'email', 'passwd', 'lang'.",
+                    "forbidden": "User with email: '${email}' exists, choose another for registration."
                 }
             },
             "auth": {
                 "errorType": {
-                    "badRequest": "default auth:BAD_REQUEST message",
-                    "forbidden": "default auth:FORBIDDEN message"
+                    "badRequest": "Auth query must has keys: 'email', 'passwd'.",
+                    "forbidden": "Email (${email}) or password (${passwd}) are wrong."
                 }
             },
             "adverts": {
                 "errorType": {
-                    "badRequest": "for request, we need a token",
-                    "forbidden": "token is invalid"
+                    "badRequest": "Query must has 'token' property.",
+                    "forbidden": "Invalid AUTH_TOKEN:\n${token}"
                 }
             }
         }
@@ -25,20 +25,20 @@
         "region": {
             "register": {
                 "errorType": {
-                    "badRequest": "++",
-                    "forbidden": "** ${name} ${emai1l}"
+                    "badRequest": "La consulta de registro debe tener las claves: 'name', 'email', 'passwd', 'lang'.",
+                    "forbidden": "Usuario con correo electrónico: '${email}' existe, elija otro para registrarse."
                 }
             },
             "auth": {
                 "errorType": {
-                    "badRequest": "--",
-                    "forbidden": "//"
+                    "badRequest": "La consulta auth debe tener claves: 'email', 'passwd'.",
+                    "forbidden": "El correo electrónico (${email}) o la contraseña (${passwd}) están incorrectos."
                 }
             },
             "adverts": {
                 "errorType": {
-                    "badRequest": "for request, we need a token",
-                    "forbidden": "token is invalid"
+                    "badRequest": "La consulta debe tener propiedad 'token'.",
+                    "forbidden": "No válido AUTH_TOKEN:\n${token}"
                 }
             }
         }

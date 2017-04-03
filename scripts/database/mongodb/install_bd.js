@@ -12,20 +12,22 @@ const openFile = (uri) => {
 
 // config
 const inputFile = 'adverts.json'
+const dbName = 'advertisement-prototype'
 
 // execution
 const conn = new Mongo()
-const db = conn.getDB('advertisement-prototype')
+const db = conn.getDB(dbName)
 
 print()
-print('\x1b[1mScript:\x1b[0m adverts insertion, removes \x1b[4mall\x1b[0m previous existed')
+print('\x1b[1mScript:\x1b[0m adverts insertion from file, removes \x1b[4mall\x1b[0m previous existed')
+print(`\x1b[1mFile:\x1b[0m ${inputFile}`)
 print('---\n')
 
 let json
 try {
     json = openFile(inputFile)
 } catch (err) {
-    print(`\x1b[31m${err.name}:\x1b[0m ${err.message} \x1b[4m${inputFile}\x1b[0m`)
+    print(`\x1b[31m${err.name}:\x1b[0m ${err.message}`)
     quit(1)
 }
 

@@ -17,6 +17,19 @@ In **development** environment doesn't use cluster mode.
 
 In **production** environment, use only **builded** package. You need to installed **pm2** in your work environment and run `pm2 start index.js -i 0` script. It will start server in cluster mode, using available CPUs.
 
+## Mongo Shell script
+MongoDB shell version must be >= 3.4.2
+
+Go to `scripts/database/mongodb/` directory and execute there the command `mongo install_bd.js`.
+
+## Error messages
+System has feature to humanize error messages, there is hardcoded default messages model, it uses if no-one translation found. If error is not described anywhere, it has format `region:type`.
+
+External document located at `assets/docs/errorMessages.json`, which has strict structure to translate errors relatively to language. If defined language at `user` or at query is absent, system uses `en` as default.
+
+Here is something special to know: messages are support template literals. I.e.:
+`Email (${email}) or password (${passwd}) are wrong.`, where ${key} - is passed value through error.
+
 ## Example
 Request examples in curl.
 
@@ -61,7 +74,7 @@ Documents can be sorted:
 
 + sort *(*string*)*: ascending sorting by set specific property
 
-Requests:
+#### Requests:
 
 + paging, sorting, price interval, tag
 ```curl
