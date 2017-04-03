@@ -1,13 +1,13 @@
-# Advertiser API
-## prototype
+# Second-hand market API
+#### prototype
 
 Second-hand goods market API.
 
 API has next endpoints:
-* register user
+* register
 * auth
-* get list of available tags
-* get list of advertisements
+* tags
+* advertisements
 
 ## Running
 After project cloning and installing dependencies, you have to run server by:
@@ -15,7 +15,7 @@ After project cloning and installing dependencies, you have to run server by:
 
 In **development** environment doesn't use cluster mode.
 
-In **production** environment, you need to have installed **pm2** in your work environment and run `start` script. It will start server in cluster mode, using available CPUs.
+In **production** environment, use only **builded** package. You need to installed **pm2** in your work environment and run `pm2 start index.js -i 0` script. It will start server in cluster mode, using available CPUs.
 
 ## Example
 Request examples in curl.
@@ -33,6 +33,7 @@ curl -XPOST http://localhost:3000/apiv1/register?lang=es -H 'Content-Type: appli
 
 ### auth
 ###### Auth user
+Returns `AUTH_TOKEN`
 ```curl
 curl -XPOST http://localhost:3000/apiv1/auth -H 'Content-Type: application/json' -d '{ "email": "dimpiax@gmail.com", "passwd": "root" }'
 ```

@@ -1,31 +1,37 @@
 {
-  "name": "advertiser-prototype",
+  "name": "sh-market-api",
   "version": "1.0.0",
-  "description": "Allows querying preloaded advertisements",
+  "description": "Second-hand market API, allows querying advertisements",
   "main": "index.js",
   "engines": {
     "node": "^7.5.0",
     "npm": "^4.4.0"
   },
+  "keywords": [
+    "node",
+    "babel",
+    "flow",
+    "eslint"
+  ],
   "scripts": {
     "start": "if [[ ${NODE_ENV} == 'production' ]]; then npm run start:prod; else npm run start:dev; fi",
     "start:dev": "nodemon src --exec babel-node",
     "start:prod": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d dist",
+    "deploy": "echo \"Would be deploy to server via git to bare repository, but this is DEMO version :)\"",
     "lint": "npm run eslint && npm run flow",
     "eslint": "eslint src",
     "flow": "flow src",
-    "build": "babel src -d dist",
     "clean": "rimraf dist",
     "sloc": "sloc src"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/dimpiax/advertiser-prototype.git"
+    "url": "git+ssh://git@github.com/dimpiax/sh-market-api.git"
   },
   "author": "Dima Pilipenko <dimpiax@gmail.com>",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/dimpiax/advertiser-prototype#readme",
+  "homepage": "https://github.com/dimpiax/sh-market-api#readme",
   "devDependencies": {
     "babel-cli": "6.24.0",
     "babel-eslint": "7.2.1",
