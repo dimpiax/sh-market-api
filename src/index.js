@@ -19,6 +19,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }))
 app.use(methodOverride())
 
+// static
+app.use('/images/adverts/', express.static('public/images'))
+
 // routers
 app.use('/apiv1', require('./app/routes/apiv1').default)
 
