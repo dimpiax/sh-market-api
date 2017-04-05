@@ -34,11 +34,12 @@ export default {
     get database(): Object {
         const data = {
             protocol: 'mongodb',
-            address: 'localhost',
+            host: 'localhost',
+            port: 28029,
             name: 'advertisement-prototype',
 
             get uri(): string {
-                return `${data.protocol}://${data.address}/${data.name}`
+                return `${data.protocol}://${data.host}:${data.port}/${data.name}`
             }
         }
 

@@ -12,11 +12,13 @@ function openFile(uri) {
 
 // config
 const inputFile = 'adverts.json'
-const dbName = 'advertisement-prototype'
+const host = 'localhost'
+const port = 28029
+const database = 'advertisement-prototype'
 
 // execution
-const conn = new Mongo()
-const db = conn.getDB(dbName)
+const conn = new Mongo(`${host}:${port}`)
+const db = conn.getDB(database)
 
 print()
 print('\x1b[1mScript:\x1b[0m adverts insertion from file, removes \x1b[4mall\x1b[0m previous existed')
