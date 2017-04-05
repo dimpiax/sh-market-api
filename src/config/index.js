@@ -1,5 +1,7 @@
 /* @flow */
 
+import system from '../utils/system'
+
 export default {
     get errors(): Object {
         return {
@@ -32,11 +34,13 @@ export default {
     },
 
     get database(): Object {
+        const cliArgs = system.cliArgs
+
         const data = {
             protocol: 'mongodb',
-            host: 'localhost',
-            port: 28029,
-            name: 'advertisement-prototype',
+            host: cliArgs.dbHost || 'localhost',
+            port: cliArgs.dbPort || 27017,
+            name: cliArgs.dbName || 'advertisement-prototype',
 
             get uri(): string {
                 return `${data.protocol}://${data.host}:${data.port}/${data.name}`

@@ -11,6 +11,7 @@ const openFile = (uri) => {
 }
 
 // config
+// default port is 27017
 const inputFile = 'adverts.json'
 const { host, port, database } = { host: 'localhost', port: 28029, database: 'advertisement-prototype' }
 

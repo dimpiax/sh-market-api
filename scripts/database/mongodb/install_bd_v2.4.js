@@ -13,7 +13,7 @@ function openFile(uri) {
 // config
 const inputFile = 'adverts.json'
 const host = 'localhost'
-const port = 28029
+const port = 28029 // default is 27017
 const database = 'advertisement-prototype'
 
 // execution

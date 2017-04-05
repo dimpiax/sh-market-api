@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "start": "if [[ ${NODE_ENV} == 'production' ]]; then npm run start:prod; else npm run start:dev; fi",
-    "start:dev": "nodemon src --exec babel-node",
+    "start:dev": "nodemon src --exec babel-node -- --dbp 28029",
     "start:prod": "node index.js",
     "build": "babel src -d dist",
     "deploy": "echo \"Would be deploy to server via git to bare repository, but this is DEMO version :)\"",
