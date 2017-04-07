@@ -18,7 +18,6 @@ export default {
 
     find: async (name: ModelNameType, query: Object, projection: string = '-_id -__v', opts: ?Object = null): Promise<Object> => {
         try {
-            console.log(projection, opts)
             const result = await getModel(name).find(query, projection, opts).lean()
             return result
         } catch (err) {

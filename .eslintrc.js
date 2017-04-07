@@ -9,7 +9,8 @@ module.exports = {
     "extends": "airbnb-base",
     "parser": "babel-eslint",
     "plugins": [
-        "flowtype"
+        "flowtype",
+	"security"
     ],
     "env": {
         "es6": true,

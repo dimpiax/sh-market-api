@@ -8,6 +8,9 @@ import config from '../../../config'
 import AdvertService from '../../services/advert-service'
 import APIError from '../../errors'
 
+// schemas
+import Advert from '../../../database/schemas/advert'
+
 const router = Router()
 
 router.use((req: Object, res: Object, next: () => void) => {
@@ -34,7 +37,19 @@ router.route('/')
     .get(async (req: Object, res: Object, next: () => void): Promise<void> => {
         try {
             const result = await AdvertService.getAdverts({ ...req.query })
-            res.send(result)
+
+            // append full path to photo storage
+            const host = `${req.protocol}://${req.headers.host}`
+            const photoPrefix = config.resource.advert.photoPrefix
+            const resourcePhotoPrefix = `${host}/${photoPrefix}`
+
+            // map retrieved results
+            const filledDataResult = result.map((el: Advert): Advert => {
+                el.photo = `${resourcePhotoPrefix}/${el.photo}`
+                return el
+            })
+
+            res.send(filledDataResult)
         } catch (err) {
             next(err)
         }

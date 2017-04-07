@@ -25,7 +25,6 @@ export default {
         mongoose.connection.on('connected', () => {
             Logger.log(Level.database, `mongoose connected to port ${mongoose.connection.port}`)
 
-
             initModels()
         })
 

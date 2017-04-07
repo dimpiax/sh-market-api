@@ -48,5 +48,13 @@ export default {
         }
 
         return data
+    },
+
+    get resource(): Object {
+        return {
+            advert: {
+                photoPrefix: 'images/adverts'
+            }
+        }
     }
 }

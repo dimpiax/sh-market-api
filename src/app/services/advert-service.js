@@ -78,7 +78,7 @@ export default class AdvertService {
     static _getPageOptions(startValue: string, limitValue: string): ?{ skip: number, limit: number } {
         const start = parseInt(startValue, 10)
         const limit = parseInt(limitValue, 10)
-        if (start == null || limit == null) return null
+        if (isNaN(start) || isNaN(limit)) return null
 
         const skip = start * limit
         return { skip, limit }
